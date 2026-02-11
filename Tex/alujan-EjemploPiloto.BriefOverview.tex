@@ -1,0 +1,480 @@
+% Packages needed and used
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{coffeestains}
+\usepackage[spanish]{babel}
+\usepackage{float}
+\usepackage{xspace}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{amssymb}
+\usepackage{amsbsy}
+\usepackage{lastpage}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+\usepackage{lipsum}
+\usepackage{bm}
+
+% Graphics path
+\graphicspath{ {Media/} }
+
+% Page definitions: Margins
+\addtolength{\oddsidemargin}{-0.8in}
+\addtolength{\evensidemargin}{-0.8in}
+\addtolength{\textwidth}{1.5in}
+\addtolength{\topmargin}{-1in}
+\addtolength{\textheight}{2in}
+
+% Setup of colors, title and Authors
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={alujan-PilotExample},
+    pdfpagemode=FullScreen,
+    }
+    
+\title{
+   Ejemplo Piloto  \\
+  \large Un corto vistazo a un ejemplo de doble curl}
+\author{
+    Luján, Alejandro\\
+    \texttt{alujan@unal.edu.co} 
+}
+\date{October, 2024}
+
+\begin{document}
+
+% ---------------------------------- Definitions ---------------------------------- %
+% - Integrals definitions
+\newcommand{\vol}[2]{(#1, #2)_K}
+\newcommand{\face}[2]{\langle #1, #2 \rangle_{\partial K}}
+\newcommand{\frontier}[2]{\langle #1, #2 \rangle_{\partial \Omega}}
+
+% - Symbols definitions
+\newcommand*{\defeq}{\mathrel{\vcenter{\baselineskip0.5ex \lineskiplimit0pt \hbox{\scriptsize.}\hbox{\scriptsize.}}}=}
+\newcommand{\refeq}[1]{(\ref{#1})}
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+
+% - Operations definitions
+\newcommand*{\curl}[1]{\textbf{\textup{curl}}(\vect{#1})}
+
+% ----------------- Coffee stains Definitions Examples ----------------- % 
+% \coffeestainA{0.9}{0.8}{-45}{6cm}{10cm}
+% \coffeestainB{0.7}{1}{-30}{18 pt}{-135 pt}
+% \coffeestainC{1}{1}{180}{0}{-5 mm}
+% \coffeestainD{0.4}{0.5}{90}{3 cm}{4 cm}
+
+% ------------------------------- Title Definition ------------------------------- %
+\maketitle
+
+% Coffee stain on the start of the page
+\coffeestainA{0.9}{0.8}{-45}{6cm}{10cm}
+
+% ----------------------- Problem definition section ----------------------- %
+% Brief definition of the problem, strong formulation, details on the 
+% domain and information related of the definitions. Important, it's
+% defined in this section the weak formulation of the problem
+\section{El problema}
+
+\noindent Hallar $u$ en $\Omega$ tal que:
+\begin{align*}
+    \vect{u} + \textbf{curl}(\curl{u}) &= \vect{f}~\textup{en}~\Omega \\
+    \vect{u} \times \vect{n} &= \vect{g} \times \vect{n}~\textup{sobre}~\partial \Omega
+\end{align*}
+
+\noindent Se introduce la variable $\vect{z} \defeq \curl{u}$ así el problema resulta:
+\begin{align*}
+    \vect{z} - \curl{u} &= 0~\textup{en}~\Omega \\
+    \vect{u} + \curl{z} &= \vect{f}~\textup{en}~\Omega \\
+    \vect{u} \times \vect{n} &= \vect{g} \times \vect{n}~\textup{sobre}~\partial \Omega
+\end{align*}
+
+\noindent Testeando con $\vect{v}$ y $\vect{r}$ suaves en $K \in \mathcal{T}_h$, empleando el teorema de Green, el problema inicial puede ser reescrito de la forma:
+\begin{align*}
+    \int_K \vect{z} \cdot \vect{r} - \int_K \curl{u} \cdot \vect{r} &= 0 
+    \hspace{1mm} : \hspace{1mm} 
+    \int_K \curl{u} \cdot \vect{r} = \int_K \vect{u} \cdot \curl{r} + \int_{\partial K} \vect{u}^t \cdot \vect{n} \times \vect{r} \\
+    \int_K \vect{u} \cdot \vect{v} + \int_K \curl{z} \cdot \vect{v} &= \int_K \vect{f} \cdot \vect{v}
+    \hspace{1mm} : \hspace{1mm} 
+    \int_K \curl{z} \cdot \vect{v} = \int_K \vect{z} \cdot \curl{v} + \int_{\partial K} \vect{z}^t \cdot \vect{n} \times \vect{v}
+\end{align*}
+
+\noindent Adicionalmente considerando $\vect{\eta}$ suave en $e \in \mathcal{E}(K)$. Considerando además una simplificación en la notación local, las integrales en el volumen se denotan: $\vol{*}{*}$ y las integrales en la frontera se denotan $\face{*}{*}$, las integrales que toman lugar en la frontera siguen una notación similar $\frontier{*}{*}$. Así el sistema inicialmente propuesto toma la forma:
+\begin{align*}
+    \vol{\vect{z}}{\vect{r}} - \vol{\vect{u}}{\curl{r}} - \face{\vect{u}^t}{\vect{r} \times \vect{n}} &= 0
+    	\hspace{2 mm}\forall \vect{r} \in \mathcal{P}_k(K)^3  \\
+    \vol{\vect{u}}{\vect{v}} + \vol{\vect{z}}{\curl{v}} + \face{\vect{z}^t}{\vect{v} \times \vect{n}} &= \vol{\vect{f}}{\vect{v}}
+    	\hspace{2 mm}\forall \vect{v} \in \mathcal{P}_k(K)^3 \\
+    \frontier{\vect{u} \times \vect{n}}{\vect{\eta}} &= \frontier{\vect{g} \times \vect{n}}{\vect{\eta}}
+    \hspace{2 mm} \forall \vect{\eta} \in \mathcal{P}_k(e)^3, \hspace{1mm} \textup{sobre}~\partial \Omega
+\end{align*}
+
+\noindent Discretizando, localmente se desea hallar $\vect{z}_h$, $\vect{u}_h$, $\vect{u}^t_h$, donde $\vect{\hat{u}}^t_h \approx \vect{u}^t \in \partial K$, $\vect{\hat{z}}^t_h \approx \vect{\hat{z}}^t \in \partial K$, adicionalmente se considera el flujo $\vect{n} \times \vect{\hat{z}}^t_h = \vect{n} \times \vect{\hat{z}}^t + \tau \left( \vect{u}^t - \vect{\hat{u}}^t_h \right)$, así el sistema resulta en: 
+\begin{align}
+\label{eq:1}
+    \vol{\vect{z_h}}{\vect{r_h}} - \vol{\vect{u}}{\curl{r_h}} - \face{\hat{u}^t_h}{\vect{r_h} \times \vect{n}} &= 0
+    	\hspace{2 mm}\forall \vect{r} \in \mathcal{P}_k(K)^3  \\
+\begin{split}
+    \vol{\vect{u_h}}{\vect{v_h}} + \vol{\vect{z_h}}{\curl{v_h}} + 
+    \face{\vect{n} \times \vect{z_h^t}}{\vect{v_h}} &\\ 
+    + \tau \face{\vect{u_h^t}}{\vect{v_h}} -\tau \face{\vect{\hat{u}_h^t}}{\vect{v_h}} 
+    &= \vol{\vect{f}}{\vect{v_h}}
+    	\hspace{2 mm}\forall \vect{v} \in \mathcal{P}_k(K)^3 
+\end{split} \\
+\label{eq:2}
+    \face{\vect{n} \times \vect{z_h^t}}{\vect{\eta_h}} + \tau \face{\vect{u^t}}{\vect{\eta_h}} - \tau \face{\vect{\hat{u}^t_h}}{\vect{\eta_h}} &= 0
+    \hspace{2 mm} \forall \vect{\eta} \in \mathcal{P}_k(e)^3, \hspace{1mm} \textup{sobre}~\partial \Omega/\partial \Omega \\ 
+\label{eq:3}
+    \frontier{\vect{\hat{u}^t_h} \times \vect{n}}{\vect{\eta_h}} &= \frontier{\vect{g} \times \vect{n}}{\vect{\eta_h}}
+    	\hspace{2 mm} \forall \vect{\eta} \in \mathcal{P}_k(e)^3, \hspace{1mm} \textup{sobre}~\partial \Omega
+\end{align}
+
+\noindent Este es el sistema sistema que se propone a solucionar, para esto se debe realizar las siguientes consideraciones, donde para el volumen del elemento $K$
+\begin{equation*}
+    \left . \vect{u_h} \right |_K = \sum_{i=0}^{d_3} \xi_i P_i(x)
+    \hspace{1mm} : \hspace{1mm} P_i \in \mathcal{P}_k(K)^3, 
+    \hspace{1 mm}
+    \left . \vect{z_h} \right |_K = \sum_{i=0}^{d_3} \gamma_i P_i(x)
+    \hspace{1mm} : \hspace{1mm} P_i \in \mathcal{P}_k(K)^3,
+\end{equation*}
+
+\noindent Por otro lado para la frontera del elemento se considera la misma base, pero con un consideración adicional, considerando $\left \lbrace \hat{D}_1, ..., \hat{D}_{d2} \right \rbrace$ base de $\mathcal{P}_k(\hat{e})$ con $D = \hat{D} \circ \varphi_e^{-1}$ donde $\varphi_e$ cumple:
+
+\begin{equation*}
+	\vect{x} = \varphi_e(\hat{x}, \hat{y}) = \hat{x} (P_2 - P_1) +\hat{y} (P_3 - P_1) + P_1
+		     = \left [ \begin{array}{cc} P_2 - P_1 & P_3 - P1 \end{array} \right ]
+		     \cdot
+		      \left [ \begin{array}{cc} \hat{x} \\ \hat{y} \end{array}  \right ] + P_1
+\end{equation*}
+
+\noindent Considerando los elementos de la primera matriz $\vect{A}$, independientemente de la matriz que se considere, los elementos de esta son ortogonales, a los vectores $\vect{n}$, así denotando las componentes como: $\vect{A} = [\vect{A_1} | \vect{A_0}]$ y extendiendo la base $D$ empleando los directores en $\mathbb{R}^2$, se define la base como:
+
+\begin{equation}
+\label{eq:4}
+	\left \lbrace 
+	\vect{A} \left [ \begin{array}{cc} D_{1} \\ 0 \end{array}  \right ] , ... , 
+	\vect{A} \left [ \begin{array}{cc} D_{d2} \\ 0 \end{array}  \right ],
+	\vect{A} \left [ \begin{array}{cc} 0 \\ D_{1} \end{array}  \right ] , ... , 
+	\vect{A} \left [ \begin{array}{cc} 0 \\ D_{d2} \end{array}  \right ]
+	\right \rbrace
+	\Rightarrow
+	\left \lbrace 
+	\vect{\xi}_1, ..., \vect{\xi}_{d2}, \vect{\xi}_{d2 + 1}, ..., \vect{\xi}_{2d2}
+	\right \rbrace
+\end{equation}
+
+\noindent Con estos elementos definidos, se propone para la frontera del elemento $K$:
+
+\begin{equation*}
+    \left . \vect{\hat{u}^t_h} \right |_e = \sum_{i=0}^{2d_2} \beta_i \vect{\xi}_i(x)
+    \hspace{1mm} : \hspace{1mm} D_i \in \mathcal{P}_k(e)^3
+\end{equation*}
+
+\noindent Con esto, se definen los grados de libertad que describen cada una de las variables, respectivamente $\beta$, $\gamma$ y $\xi$, así se procede a definir cada una de las integrales involucradas en el cálculo.
+
+\section{Construcción de las integrales}
+
+\noindent Se considera la integral de masa \textit{(Tambien conocida como \textbf{MM})}:
+\begin{align}
+    \vol{\vect{z_h}}{\vect{r_h}} \approx
+    [r_h]'~\mathbf{M}~[z_h] = 
+    [r_h]'
+    \left(
+    \begin{array}{ccc}
+       \vect{M}_i  & 0 & 0 \\
+        0 & \vect{M}_i & 0 \\
+        0 & 0 & \vect{M}_i \\
+    \end{array}
+    \right)
+    [z_h]
+\end{align}
+
+\noindent Donde cada uno de los elementos mencionados $\mathrm{M}_i$ hacen referencia a la cuadratura asociada a los $d_3 \times d_3$ grados de libertad del producto interno entre cada una de las componentes.
+
+\vspace{1mm}
+\noindent Considere la integral asociada al curl \textit{(Tambien conocida como \textbf{MC})}:
+\begin{align}
+\label{eq:5}
+    \vol{\vect{z_h}}{\curl{r_h}} \approx
+    [r_h]'~\mathbf{curlPP}~[z_h] = 
+    [r_h]'
+    \left(
+    \begin{array}{ccc}
+        0 & \mathbf{CM}_z & -\mathbf{CM}_y\\
+        -\mathbf{CM}_z & 0 & \mathbf{CM}_x \\
+        \mathbf{CM}_y & -\mathbf{CM}_x & 0 \\
+    \end{array}
+    \right)
+    [z_h]
+\end{align}
+
+\noindent Donde los elementos mencionados $\mathrm{CM}_\star = \partial \hat{\star} / \partial x~\partial_x\hat{P} + \partial \hat{\star} / \partial y~\partial_y\hat{P} + \partial \hat{\star} / \partial z~ \partial_z\hat{P} : \star = \lbrace x, y, z \rbrace$, así cada una las matrices especificadas hace referencia a la cuadratura asociada a los $d_3 \times d_3$ grados de libertad para cada una de las componentes asociadas.
+
+\vspace{1mm}
+
+\noindent Se considera la integral asociada al producto entre la función test $\vect{v}$ y la función $\vect{f}$ 
+\begin{align}
+    \vol{f}{v_h} \approx
+    [v_h]'~\mathbf{f~TEST} = 
+    [v_h]'
+    \left(
+    \begin{array}{ccc}
+       \mathbf{ f_x TEST }\\
+       \mathbf{ f_y TEST }\\
+       \mathbf{ f_z TEST }\\
+    \end{array}
+    \right) = 
+    \mathbb{A}_f
+    [v_h]'
+\end{align}
+
+\noindent Cada una de las definiciones $f_\star TEST : \star = \lbrace x, y, z \rbrace$ hace referencia a la cuadratura de los $d_3 \times d_3$ grados de libertad del producto interno entre la componente de la función y la variable test.
+
+\vspace{1mm}
+\noindent Se considera la integral asociada al producto cruz con respecto a la normal $n$ \textit{(Tambien conocida como \textbf{TTM})}:
+\begin{align}
+    - \face{\vect{z}_h}{\vect{n} \times \vect{r}_h}  \approx
+    [r_h]'~\mathbf{nPP}[z_h] = 
+    [r_h]'
+    \left(
+    \begin{array}{ccc}
+        0 & n_z~\mathbf{PP} & -n_y~\mathbf{PP} \\
+        -n_z~\mathbf{PP} & 0 & n_x~\mathbf{PP} \\
+        n_y~\mathbf{PP} & -n_x~\mathbf{PP} & 0 \\
+    \end{array}
+    \right)
+    [z_h]
+\end{align}
+
+\noindent Donde cada una de las matrices presentadas $\mathbf{PP}$ hacen referencia a la cuadratura asociada a los $d_3 \times d_3$ grados de libertad del producto interno entre cada una de las componentes dispuestas.
+\vspace{1mm}
+
+\noindent Se considera la integral asociada a la traza tangencial y el parámetro $\tau$ del modelo \textit{(Tambien conocida como \textbf{CTM})}:
+\begin{align}
+    \begin{split}
+    \tau~\face{\vect{u}_h^t}{\vect{v}_h} &\approx
+    [v_h]'~\mathrm{tauPP}~[u_h] \\ &= 
+    [v_h]'
+    \left(
+    \begin{array}{ccc}
+        (n_y^2 + n_z^2)~\mathbf{\tau PP} & -n_x n_y~\mathbf{\tau PP} & -n_x n_z~\mathbf{\tau PP} \\
+        -n_y n_x~\mathbf{\tau PP} & (n_x^2 + n_z^2)~\mathbf{\tau PP} & -n_y n_z~\mathbf{\tau PP} \\
+        -n_z n_x~\mathbf{\tau PP} & -n_z n_y~\mathbf{\tau PP} & (n_x^2 + n_y^2)~\mathbf{\tau PP} \\
+    \end{array}
+    \right)
+    [u_h]
+\end{split}
+\end{align}
+\noindent Donde cada una de las matrices presentadas $\mathbf{\tau PP}$ hacen referencia a la cuadratura asociada a los $d_3 \times d_3$ grados de libertad del producto interno entre cada una de las componentes dispuestas, y el efecto que tiene el coeficiente $\tau$ definido. Esta matriz es igual al producto directo entre la matriz $\mathbf{PP}$ y $\tau$.
+
+\vspace{1mm}
+\noindent Se considera la integral en las caras asociadas al producto cruz con respecto a la normal, esta integral es bastante similar a la explorada anteriormente en el volumen \refeq{eq:5}, únicamente que esta integral a considerar toma elementos que viven únicamente en las caras \textit{(Tambien conocida como \textbf{-FNTT})}:
+\begin{align*}
+    \face{\vect{\hat{u}}_h^t}{\vect{r}_h \times \vect{n}}  \approx
+    [r_h]'~\mathbf{nDP_e}~[\hat{u}_h^t]  = 
+    [r_h]'
+    \left(
+    \begin{array}{cccccc}
+        (n_z a_{1}^{y}  - n_y a_{1}^{z} ) \mathbf{DP} \\
+        (n_z a_{0}^{y}  - n_y a_{0}^{z} ) \mathbf{DP} \\
+        (n_x a_{1}^{z}  - n_z a_{1}^{x} ) \mathbf{DP} \\
+        (n_x a_{0}^{z}  - n_z a_{0}^{x} ) \mathbf{DP} \\
+        (n_y a_{1}^{x}  - n_x a_{1}^{y} ) \mathbf{DP} \\
+        (n_y a_{0}^{x}  - n_x a_{0}^{y} ) \mathbf{DP} \\
+    \end{array}
+    \right)
+    [\hat{u}_h^t], \hspace{1mm}
+    \forall e \in \mathcal{E}(K)
+\end{align*}
+
+\noindent Primeramente debe notarse que por componente son considerados 2 valores de la base, esto debido a que se considera como generador la base definida en \refeq{eq:4}, por lo cual en cada componente se consideran los $d_3 \times d_2$ grados de libertad, y la base exige $d_3 \times 2d_2$ grados de libertad. Adicionalmente considerarse en cuenta que esta integral es definida por cara, por lo cual resulta conveniente para cada uno de los elementos definir $DP$ para los grados de libertad $d_3 \times 2d_2$ las cuatro caras que pertenecen al elemento concatenadas horizontalmente. En otras palabras la matriz que se debe reverenciar toma la forma:
+
+\begin{align}
+    [r_h]'~\mathbf{nDP}~[\hat{u}_h^t]  = 
+    [r_h]'
+    \left(
+    \begin{array}{cccc}
+        \mathbf{nDP_{e_1}} & \mathbf{nDP_{e_2}} & \mathbf{nDP_{e_3}} & \mathbf{nDP_{e_4}}
+    \end{array}
+    \right)
+    [\hat{u}_h^t]
+\end{align}
+
+\noindent Se considera la integral en las caras asociada al producto interno entre elementos de viven en el volumen y las caras \textit{(Tambien conocida como \textbf{FNM})}: 
+\begin{align*}
+    \tau~\face{\vect{\hat{u}}_h^t}{\vect{v}_h} \approx
+    [v_h]'~\mathbf{tauDP_e}~[\hat{u}_h^t]  = 
+    [v_h]'
+    \left(
+    \begin{array}{cccccc}
+        \tau a_{1}^{x} \mathrm{DP} \\
+        \tau a_{1}^{y}\mathrm{DP} \\
+        \tau a_{1}^{z} \mathrm{DP} \\
+        \tau a_{0}^{x} \mathrm{DP} \\
+        \tau a_{0}^{y}\mathrm{DP} \\
+        \tau a_{0}^{z} \mathrm{DP}
+    \end{array}
+    \right)
+    [\hat{u}_h^t], \hspace{1mm}
+    \forall e \in \mathcal{E}(K)
+\end{align*}
+
+\noindent Homologamente, esta matriz es definida por caras, por lo cual la matriz que se referencia obtiene la forma tras concatenar cada una de estas matrices horizontalmente.
+\begin{align}
+    \tau~[v_h]'~\mathbf{tauDP}~[\hat{u}_h^t]  = 
+    [v_h]'
+    \left(
+    \begin{array}{cccc}
+        \mathbf{tauDP_{e_1}} & \mathbf{tauDP_{e_2}} & \mathbf{tauDP_{e_3}} & \mathbf{tauDP_{e_4}}
+    \end{array}
+    \right)
+    [\hat{u}_h^t]
+\end{align}
+
+\noindent Se considera la integral del flujo numérico asociada al producto interno entre el elemento tangencial y la función test en las caras \textit{(Tambien conocida como \textbf{CTFM})}:
+\begin{align*}
+    \tau~\face{\vect{u}_h^t}{\vect{\eta}_h} &\approx
+    [\eta_h]'~\mathbf{tauDP\_t_e}~[u_h^t] \\ &= 
+    [\eta_h]'
+    \left(
+    \begin{array}{ccc}
+     	( a_{1}^x (n_y^2 + n_z^2) -a_{1}^y n_x n_y - a_{1}^z n_x n_z )~\tau \mathbf{DP}' \\
+	( a_{0}^x (n_y^2 + n_z^2) -a_{0}^y n_x n_y - a_{0}^z n_x n_z )~\tau \mathbf{DP}' \\
+        ( -a_{1}^x n_y n_x  + a_{1}^y (n_x^2 + n_z^2) - a_{1}^z n_y n_z )~\tau \mathbf{DP}' \\
+        ( -a_{0}^x n_y n_x  + a_{0}^y (n_x^2 + n_z^2) - a_{0}^z n_y n_z )~\tau \mathbf{DP}' \\
+        ( -a_{1}^x n_z n_x  - a_{1}^y n_z n_y + a_{1}^z (n_x^2 + n_y^2) )~\tau \mathbf{DP}'  \\
+        ( -a_{0}^x n_z n_x  - a_{0}^y n_z n_y + a_{0}^z (n_x^2 + n_y^2) )~\tau \mathbf{DP}' 
+    \end{array}
+    \right)
+    [u_h^t], \hspace{1mm}
+    \forall e \in \mathcal{E}(K)
+\end{align*}
+
+\noindent Siguiendo las mismas consideraciones anteriores, la matriz a considerar es:
+\begin{align}
+    [\eta_h]'~\mathbf{tauDP\_t}_e~[u_h]   = 
+    [\eta_h]'
+    \left(
+    \begin{array}{cccc}
+        \mathbf{tauDP\_t_{e_1}} & \mathbf{tauDP\_t_{e_2}} & \mathbf{tauDP\_t_{e_3}} & \mathbf{tauDP\_t_{e_4}}
+    \end{array}
+    \right)
+    [u_h^t]
+\end{align}
+
+\noindent Finalmente se considera la integral que contiene el producto interno de las funciones que viven en las caras \textit{(Tambien conocida como \textbf{FNFN})}:
+\begin{align}
+    \tau~\face{\vect{\hat{u}}_h^t}{\vect{\eta}_h} \approx
+    [\eta_h]'~\mathbf{tauDD}~[\hat{u}^t_h]  = 
+    [\eta_h]'
+    \left(
+    \begin{array}{cc}
+        \mathbf{A}_1' \cdot \mathbf{A}_1~\mathbf{\tau DD} & \mathbf{A}_1' \cdot \mathbf{A}_0~\mathbf{\tau DD} \\
+        \mathbf{A}_0' \cdot \mathbf{A}_1~\mathbf{\tau DD} & \mathbf{A}_0' \cdot \mathbf{A}_0~\mathbf{\tau DD} \\
+    \end{array}
+    \right)
+    [\hat{u}^t_h]
+\end{align}
+
+\noindent Donde el elemento $\tau \mathbf{DD}$ la cuadratura asociada para los $d_2 \times d_2$ grados de libertad, por lo cual la matriz total tiene dimensiones $2d_2 \times 2d_2$.
+
+\section{El sistema final}
+
+\noindent Con los elementos planteados, finalmente definimos tres matrices definidas por bloques que permiten representar el sistema definido por las ecuaciones \refeq{eq:1} - \refeq{eq:3}, empleando los elementos de cuadratura anterior mencionados.
+\begin{align}
+    \mathbb{A}_1 \defeq 
+    \left (
+    \begin{array}{cc}
+        \mathbf{M} & -\mathbf{curlPP} \\
+        \mathbf{curlPP} + \mathbf{nPP} & \mathbf{M} + \mathbf{tauPP}
+    \end{array}
+    \right ),
+        \mathbb{A}_2 \defeq 
+    \left (
+    \begin{array}{cc}
+        \mathbf{nDP}' \\
+        -\mathbf{tauDP}'
+    \end{array}
+    \right ), 
+        \mathbb{A}_3 \defeq 
+    \left (
+    \begin{array}{cc}
+        \mathbf{nDP} & \mathbf{tauDP\_t}
+    \end{array}
+    \right )
+\end{align}
+
+\noindent Gracias a estas definiciones es posible escribir el problema propuesto localmente, de la forma:
+\begin{equation*}
+    \left ( [r_h]~[v_h] \right )
+    \mathbb{A}_1 
+    \left(
+    \begin{array}{cc}
+        {[z_h]} \\
+        {[u_h]}
+    \end{array}
+    \right )
+    + \left ( [r_h] ~ [v_h] \right )
+    \mathbb{A}_2 [\hat{u}^t_h] 
+    = \left ( [r_h] ~ [v_h] \right )~\mathbb{A}_f 
+\end{equation*}
+
+\noindent Veamos que el sistema matricial permite obtener una expresión que permite aproximar los grados de libertad  de las variables de volumen, así se obtiene inicialmente:
+
+\begin{equation*}
+	\left( \begin{array}{cc}{[z_h]} \\ {[u_h]} \end{array} \right ) 
+	=
+	\mathbb{A}_1^{-1} \mathbb{A}_f - \mathbb{A}_1^{-1} \mathbb{A}_2  [\hat{u}^t_h] 
+\end{equation*}
+
+\noindent Dentro del dominio se exige \refeq{eq:2} por lo cual es posible con los elementos anteriormente definidos escribir una expresión matricial por bloques, así se obtiene:
+\begin{equation*}
+[\eta_h]' \mathbb{A}_3 
+    \left(
+    \begin{array}{cc}
+        {[z_h]} \\
+        {[u_h]}
+    \end{array}
+    \right )
+    - [\eta_h]' \mathbf{tauDD} [\hat{u}^t_h] = 0
+\end{equation*}
+
+\noindent Junto con la consideración anterior de la expresión obtenida para los grados de libertad de las variables de volumen, se obtiene una expresión para los grados de libertad del flujo numérico.
+\begin{align*}
+    \mathbb{A}_3 
+    \left(
+    \begin{array}{cc}
+        {[z_h]} \\
+        {[u_h]}
+    \end{array}
+    \right )
+    - \mathbf{tauDD} [\hat{u}^t_h] &= 0 \\
+    \mathbb{A}_3 
+    \left(
+    \mathbb{A}_1^{-1} \mathbb{A}_f - \mathbb{A}_1^{-1} \mathbb{A}_2  [\hat{u}^t_h] 
+    \right )
+    - \mathbf{tauDD} [\hat{u}^t_h] &= 0 \\
+    \mathbb{A}_3  \mathbb{A}_1^{-1} \mathbb{A}_f 
+    - \left( \mathbb{A}_3  \mathbb{A}_1^{-1} \mathbb{A}_2  + \mathbf{tauDD} \right ) [\hat{u}^t_h] &= 0 \\
+    \left( \mathbb{A}_3  \mathbb{A}_1^{-1} \mathbb{A}_2  + \mathbf{tauDD} \right ) [\hat{u}^t_h]  &=
+    \mathbb{A}_3  \mathbb{A}_1^{-1} \mathbb{A}_f
+\end{align*}
+
+\noindent Finalmente la expresión buscada es:
+\begin{equation}
+	[\hat{u}^t_h]  = 
+    \left( \mathbb{A}_3  \mathbb{A}_1^{-1} \mathbb{A}_2  + \mathbf{tauDD} \right )^{-1} ( \mathbb{A}_3  \mathbb{A}_1^{-1} \mathbb{A}_f ) = \mathbb{C_M}^{-1} \mathbb{C}_f
+\end{equation}
+
+\noindent Donde se define implicitamente que:
+
+\begin{equation*}
+	\mathbb{C_M} \defeq \mathbb{A}_3  \mathbb{A}_1^{-1} \mathbb{A}_2  + \mathbf{tauDD} , \qquad
+	\mathbb{C}_f \defeq \mathbb{A}_3  \mathbb{A}_1^{-1} \mathbb{A}_f 
+\end{equation*}
+
+\end{document}
