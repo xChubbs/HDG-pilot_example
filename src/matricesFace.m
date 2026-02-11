@@ -178,9 +178,9 @@ for l=1:4
                -Nz .* Nx,     -Nz .* Ny, Nx.^2 + Ny.^2];
 
      % Matrix created of tangential definition:
-    nx  = [  O, -Nz,  Ny; ...
-            Nz,   O, -Nx; ...
-           -Ny,  Nx,  O];
+    nx  = [  O,  Nz, -Ny; ...
+           -Nz,   O,  Nx; ...
+            Ny, -Nx,  O];
 
     % Definition of transformations related vectors
     nmuA0 = pagemtimes(nmu, reshape(A_0, [3, 1, Nelts]));
@@ -189,7 +189,13 @@ for l=1:4
     nxA0 = pagemtimes(nx, reshape(A_0, [3, 1, Nelts]));
     nxA1 = pagemtimes(nx, reshape(A_1, [3, 1, Nelts]));
 
-    % Normalization of the vectors
+    % nmuA0 = pagemtimes(reshape(A_0, [1, 3, Nelts]), nmu);
+    % nmuA1 = pagemtimes(reshape(A_1, [1, 3, Nelts]), nmu);
+    % 
+    % nxA0 = pagemtimes(reshape(A_0, [1, 3, Nelts]), nx);
+    % nxA1 = pagemtimes(reshape(A_1, [1, 3, Nelts]), nx);
+
+    % Unravel of third dimention
     nmuA0 = reshape(nmuA0, [3, Nelts]);
     nmuA1 = reshape(nmuA1, [3, Nelts]);
 
