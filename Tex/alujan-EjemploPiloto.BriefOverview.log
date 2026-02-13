@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.21.0 (TeX Live 2025)  (format=lualatex 2025.3.8)  11 FEB 2026 21:22
+This is LuaHBTeX, Version 1.21.0 (TeX Live 2025)  (format=lualatex 2025.3.8)  13 FEB 2026 13:54
  restricted system commands enabled.
 **alujan-EjemploPiloto.BriefOverview.tex
 (./alujan-EjemploPiloto.BriefOverview.tex
@@ -821,7 +821,57 @@ Package bm Info: No bold for \U/msa/m/n, using \pmb.
 Package bm Info: No bold for \U/msb/m/n, using \pmb.
 LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 149.
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 38.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/cancel/cancel.sty
+Package: cancel 2013/04/12 v2.2 Cancel math terms
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/comment/comment.sty
+\CommentStream=\write4
+
+Excluding comment 'comment')
+(/usr/local/texlive/2025/texmf-dist/tex/latex/scalerel/scalerel.sty
+Package: scalerel 2016/12/29 v1.8 Routines for constrained scaling and stretchi
+ng of objects, relative to a reference object or in absolute terms
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count330
+\calc@Bcount=\count331
+\calc@Adimen=\dimen272
+\calc@Bdimen=\dimen273
+\calc@Askip=\skip58
+\calc@Bskip=\skip59
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count332
+\calc@Cskip=\skip60
+)
+\thesrwidth=\skip61
+\thesrheight=\skip62
+\srblobheight=\skip63
+\srblobdepth=\skip64
+\mnxsrwidth=\skip65
+\LMex=\skip66
+\LMpt=\skip67
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/mathtools/mathtools.sty
+Package: mathtools 2024/10/04 v1.31 mathematical typesetting tools
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/mathtools/mhsetup.sty
+Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
+)
+\g_MT_multlinerow_int=\count333
+\l_MT_multwidth_dim=\dimen274
+\origjot=\skip68
+\l_MT_shortvdotswithinadjustabove_dim=\dimen275
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen276
+\l_MT_above_intertext_sep=\dimen277
+\l_MT_below_intertext_sep=\dimen278
+\l_MT_above_shortintertext_sep=\dimen279
+\l_MT_below_shortintertext_sep=\dimen280
+\xmathstrut@box=\box71
+\xmathstrut@dim=\dimen281
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 42.
 
 (./alujan-EjemploPiloto.BriefOverview.aux
 LaTeX Info: Redefining \. on input line 11.
@@ -829,39 +879,39 @@ LaTeX Info: Redefining \% on input line 11.
 )
 \openout1 = alujan-EjemploPiloto.BriefOverview.aux
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 49.
-LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
 
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count330
-\scratchdimen=\dimen272
-\scratchbox=\box71
-\nofMPsegments=\count331
-\nofMParguments=\count332
+\scratchcounter=\count334
+\scratchdimen=\dimen282
+\scratchbox=\box72
+\nofMPsegments=\count335
+\nofMParguments=\count336
 \everyMPshowfont=\toks48
-\MPscratchCnt=\count333
-\MPscratchDim=\dimen273
-\MPnumerator=\count334
-\makeMPintoPDFobject=\count335
+\MPscratchCnt=\count337
+\MPscratchDim=\dimen283
+\MPnumerator=\count338
+\makeMPintoPDFobject=\count339
 \everyMPtoPDFconversion=\toks49
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -872,23 +922,23 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Info: Redefining \. on input line 49.
-LaTeX Info: Redefining \% on input line 49.
-\c@lstlisting=\count336
-Package hyperref Info: Link coloring ON on input line 49.
+LaTeX Info: Redefining \. on input line 56.
+LaTeX Info: Redefining \% on input line 56.
+\c@lstlisting=\count340
+Package hyperref Info: Link coloring ON on input line 56.
 
 (./alujan-EjemploPiloto.BriefOverview.out)
 (./alujan-EjemploPiloto.BriefOverview.out)
-\@outlinefile=\write4
+\@outlinefile=\write5
 
-\openout4 = alujan-EjemploPiloto.BriefOverview.out
-LaTeX Font Info:    Trying to load font information for U+msa on input line 73.
+\openout5 = alujan-EjemploPiloto.BriefOverview.out
+LaTeX Font Info:    Trying to load font information for U+msa on input line 80.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 73.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 80.
 
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -899,11 +949,17 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
-[2]
+[2] Excluding 'comment' comment. (./img/matrix.tex
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarymatrix.code.tex
+File: tikzlibrarymatrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
+))
 
 [3]
 
-[4] 
+[4]
+
+[5] 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (./alujan-EjemploPiloto.BriefOverview.aux
 LaTeX Info: Redefining \. on input line 11.
@@ -919,44 +975,49 @@ not changed.
 )
 
 Here is how much of LuaTeX's memory you used:
- 24556 strings out of 475506
- 125129,1648299 words of node,token memory allocated
- 5754 words of node memory still in use:
-   146 hlist, 24 vlist, 10 rule, 58 math, 158 glue, 40 kern, 21 penalty, 223 gly
-ph, 151 attribute, 54 glue_spec, 77 attribute_list, 2 write nodes
-   avail lists: 2:4359,3:2514,4:327,5:699,6:35,7:8133,8:72,9:1678,10:9,11:700
- 46922 multiletter control sequences out of 65536+600000
- 81 fonts using 5649527 bytes
- 99i,20n,100p,18293b,991s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmroman10-bolditali
-c.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmroman10-ita
-lic.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmroman7-re
-gular.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmroman10
--bold.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmroman10
--regular.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmroma
-n12-bold.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmmono
-12-regular.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmro
-man12-regular.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/l
-mroman17-regular.otf></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmbx5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmbx7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-mi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
-7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10
-.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmm
-ib7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10
-.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb
-></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></u
-sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
-/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/lo
-cal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr
-/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on alujan-EjemploPiloto.BriefOverview.pdf (4 pages, 197031 bytes)
+ 26177 strings out of 475506
+ 156414,1648299 words of node,token memory allocated
+ 5787 words of node memory still in use:
+   128 hlist, 24 vlist, 10 rule, 58 math, 158 glue, 76 kern, 21 penalty, 223 gly
+ph, 151 attribute, 57 glue_spec, 77 attribute_list, 2 write nodes
+   avail lists: 1:1,2:10197,3:3222,4:327,5:733,6:35,7:9812,8:62,9:3411,10:11,11:
+704
+ 48501 multiletter control sequences out of 65536+600000
+ 82 fonts using 5775615 bytes
+ 99i,21n,100p,18293b,1282s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.ot
+f></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmroman10-boldita
+lic.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmroman10-i
+talic.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmroman7-
+regular.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmroman
+10-bold.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmroman
+10-regular.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmro
+man12-bold.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmmo
+no12-regular.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lm
+roman12-regular.otf></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm
+/lmroman17-regular.otf></usr/local/texlive/2025/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmbx5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmbx7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+mi5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7
+.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.
+pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmi
+b7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.
+pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb>
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></us
+r/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/
+local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/loc
+al/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/latxfont/line10.pfb></usr
+/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></
+usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+
+Output written on alujan-EjemploPiloto.BriefOverview.pdf (5 pages, 223546 bytes)
 .
 
-PDF statistics: 187 PDF objects out of 1000 (max. 8388607)
- 137 compressed objects within 2 object streams
- 23 named destinations out of 1000 (max. 131072)
+PDF statistics: 201 PDF objects out of 1000 (max. 8388607)
+ 145 compressed objects within 2 object streams
+ 22 named destinations out of 1000 (max. 131072)
  40 words of extra memory for PDF output out of 10000 (max. 100000000)
 

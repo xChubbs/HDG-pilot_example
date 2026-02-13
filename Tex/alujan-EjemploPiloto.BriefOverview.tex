@@ -16,9 +16,13 @@
 \usepackage{wrapfig}
 \usepackage{lipsum}
 \usepackage{bm}
+\usepackage{cancel}
+\usepackage{comment}
+\usepackage{scalerel, mathtools}
+\usepackage{tikz}
 
 % Graphics path
-\graphicspath{ {Media/} }
+\graphicspath{img}
 
 % Page definitions: Margins
 \addtolength{\oddsidemargin}{-0.8in}
@@ -44,19 +48,22 @@
     Luján, Alejandro\\
     \texttt{alujan@unal.edu.co}
 }
-\date{October, 2024}
+\date{Febrero, 2026}
+
+% Addition of math definition
+\DeclareMathOperator*{\rint}{\ThisStyle{\rotatebox{15}{$\SavedStyle\!\int\!\!\!$}}}     % Right-weighted integral
 
 \begin{document}
 
-% ---------------------------------- Definitions ---------------------------------- %
+% ---------------------------- Definitions ---------------------------- %
 % - Integrals definitions
 \newcommand{\vol}[2]{(#1, #2)_K}
 \newcommand{\face}[2]{\langle #1, #2 \rangle_{\partial K}}
+\newcommand{\facee}[2]{\langle #1, #2 \rangle_{e}}
 \newcommand{\frontier}[2]{\langle #1, #2 \rangle_{\partial \Omega}}
 
 % - Symbols definitions
 \newcommand*{\defeq}{\mathrel{\vcenter{\baselineskip0.5ex \lineskiplimit0pt \hbox{\scriptsize.}\hbox{\scriptsize.}}}=}
-\newcommand{\refeq}[1]{(\ref{#1})}
 \newcommand{\vect}[1]{\boldsymbol{#1}}
 
 % - Operations definitions
@@ -68,13 +75,13 @@
 % \coffeestainC{1}{1}{180}{0}{-5 mm}
 % \coffeestainD{0.4}{0.5}{90}{3 cm}{4 cm}
 
-% ------------------------------- Title Definition ------------------------------- %
+% -------------------------- Title Definition -------------------------- %
 \maketitle
 
 % Coffee stain on the start of the page
 \coffeestainA{0.9}{0.8}{-45}{6cm}{10cm}
 
-% ----------------------- Problem definition section ----------------------- %
+% --------------------- Problem definition section --------------------- %
 % Brief definition of the problem, strong formulation, details on the
 % domain and information related of the definitions. Important, it's
 % defined in this section the weak formulation of the problem
@@ -106,7 +113,7 @@
     \frontier{\vect{u} \times \vect{n}}{\vect{\eta}} &= \frontier{\vect{g} \times \vect{n}}{\vect{\eta}} &\quad \forall \vect{\eta} \in \mathcal{P}_k(e)^3.
 \end{align*}
 
-\noindent Discretizando, localmente se desea hallar $\vect{z}_h$, $\vect{u}_h$, $\vect{u}^t_h$, donde $\vect{\hat{u}}^t_h \approx \vect{u}^t \in \partial K$, $\vect{\hat{z}}^t_h \approx \vect{\hat{z}}^t \in \partial K$, donde la variable $\vect{\hat{z}}_h^t$ se describe en términos de la variable de esqueleto $\vect{\hat{u}_h^t}$ a partir de la igualdad $\vect{n} \times \vect{\hat{z}}^t_h = \vect{n} \times \vect{\hat{z}}^t + \tau \left( \vect{u}^t - \vect{\hat{u}}^t_h \right)$ valido para toda cara $e \in \mathcal{E}(K)$, así el problema a estudiar consiste en hallar $\vect{z}_h$, $\vect{u}_h$, $\vect{u}^t_h$ que satisfacen las siguientes ecuaciones:
+\noindent Discretizando, localmente se desea hallar $\vect{z}_h$, $\vect{u}_h$, $\vect{u}^t_h$, donde $\vect{\hat{u}}^t_h \approx \vect{u}^t \in \partial K$, $\vect{\hat{z}}^t_h \approx \vect{\hat{z}}^t \in \partial K$, donde la variable $\vect{\hat{z}}_h^t$ se describe en términos de la variable de esqueleto $\vect{\hat{u}_h^t}$ a partir de la igualdad $\vect{n} \times \vect{\hat{z}}^t_h = \vect{n} \times \vect{\hat{z}}^t + \tau \left( \vect{u}^t - \vect{\hat{u}}^t_h \right)$ valido para toda cara $e \in \mathcal{E}(K)$, así el problema a estudiar consiste en hallar $\vect{z}_h$, $\vect{u}_h$, $\vect{\hat{u}}^t_h$ que satisfacen las siguientes ecuaciones:
 \begin{align}
 \label{eq:1}
     \vol{\vect{z_h}}{\vect{r_h}} - \vol{\vect{u}}{\curl{r_h}} - \face{\hat{u}^t_h}{\vect{r_h} \times \vect{n}} &= 0 &\forall \vect{r} \in \mathcal{P}_k(K)^3, \\
@@ -121,52 +128,55 @@
     \frontier{\vect{\hat{u}^t_h} \times \vect{n}}{\vect{\eta_h}} &= \frontier{\vect{g} \times \vect{n}}{\vect{\eta_h}} &\forall \vect{\eta} \in \mathcal{P}_k(e)^3.
 \end{align}
 
-\noindent Este es el sistema sistema que se propone a solucionar, para esto se debe realizar las siguientes consideraciones, donde para el volumen del elemento $K$
+\noindent Ahora hablaremos de las bases con las cuales se construyen los pares de volumen $(\vect{u_h}, \vect{z_h})$ restringidas al elemento $K \in \mathcal{T}_h$, para esto se consideran bases polinomiales de grado menor o igual a $k$ de la forma:
 \begin{equation*}
-    \left . \vect{u_h} \right |_K = \sum_{i=0}^{d_3} \xi_i P_i(x)
+    \left . \vect{u_h} \right |_K = \sum_{i=0}^{d_3} \alpha_i P_i(x)
     \hspace{1mm} : \hspace{1mm} P_i \in \mathcal{P}_k(K)^3,
     \hspace{1 mm}
-    \left . \vect{z_h} \right |_K = \sum_{i=0}^{d_3} \gamma_i P_i(x)
+    \left . \vect{z_h} \right |_K = \sum_{i=0}^{d_3} \beta_i P_i(x)
     \hspace{1mm} : \hspace{1mm} P_i \in \mathcal{P}_k(K)^3,
 \end{equation*}
 
-\noindent Por otro lado para la frontera del elemento se considera la misma base, pero con un consideración adicional, considerando $\left \lbrace \hat{D}_1, ..., \hat{D}_{d2} \right \rbrace$ base de $\mathcal{P}_k(\hat{e})$ con $D = \hat{D} \circ \varphi_e^{-1}$ donde $\varphi_e$ cumple:
+\noindent Por otro lado para la frontera del elemento se considera inicialmente una base polinomial restringida a la cara $e \in \mathcal{E}_h$: $\left \lbrace \hat{D}_1, ..., \hat{D}_{d2} \right \rbrace$ tal que $\hat{D}_i \in \mathcal{P}_k(e)^3$ con $i = 1, ..., d_2$, donde la condición de traza normal nula se impone a partir de la ampliación de la base considerando los elementos de la matriz de vectores directores de la cara $\vect{A} = [\vect{A_1} | \vect{A_0}]$, ya que cada una de sus componentes son a las normales de la cara $\vect{n}$, así se define la base polinomial restringida a la cara $e$ como:
 
 \begin{equation*}
-	\vect{x} = \varphi_e(\hat{x}, \hat{y}) = \hat{x} (P_2 - P_1) +\hat{y} (P_3 - P_1) + P_1
-		     = \left [ \begin{array}{cc} P_2 - P_1 & P_3 - P1 \end{array} \right ]
-		     \cdot
-		      \left [ \begin{array}{cc} \hat{x} \\ \hat{y} \end{array}  \right ] + P_1
-\end{equation*}
-
-\noindent Considerando los elementos de la primera matriz $\vect{A}$, independientemente de la matriz que se considere, los elementos de esta son ortogonales, a los vectores $\vect{n}$, así denotando las componentes como: $\vect{A} = [\vect{A_1} | \vect{A_0}]$ y extendiendo la base $D$ empleando los directores en $\mathbb{R}^2$, se define la base como:
-
-\begin{equation}
-\label{eq:4}
 	\left \lbrace
-	\vect{A} \left [ \begin{array}{cc} D_{1} \\ 0 \end{array}  \right ] , ... ,
-	\vect{A} \left [ \begin{array}{cc} D_{d2} \\ 0 \end{array}  \right ],
-	\vect{A} \left [ \begin{array}{cc} 0 \\ D_{1} \end{array}  \right ] , ... ,
-	\vect{A} \left [ \begin{array}{cc} 0 \\ D_{d2} \end{array}  \right ]
+	\vect{A} \left [ \begin{array}{cc} D_{1} \\ 0 \end{array}  \right ] , ..., \vect{A} \left [ \begin{array}{cc} D_{d2} \\ 0 \end{array}  \right ], \vect{A} \left [ \begin{array}{cc} 0 \\ D_{1} \end{array}  \right ] , ..., \vect{A} \left [ \begin{array}{cc} 0 \\ D_{d2} \end{array}  \right ]
 	\right \rbrace
-	\Rightarrow
+	~\eqsim~
 	\left \lbrace
 	\vect{\xi}_1, ..., \vect{\xi}_{d2}, \vect{\xi}_{d2 + 1}, ..., \vect{\xi}_{2d2}
 	\right \rbrace
-\end{equation}
+\end{equation*}
 
-\noindent Con estos elementos definidos, se propone para la frontera del elemento $K$:
+\noindent Con estos elementos definidos, se escribe la variable $\vect{\hat{u}^t_h}$ restringida a la cara $e \in \mathcal{E}_h$:
 
 \begin{equation*}
-    \left . \vect{\hat{u}^t_h} \right |_e = \sum_{i=0}^{2d_2} \beta_i \vect{\xi}_i(x)
+    \left . \vect{\hat{u}^t_h} \right |_e = \sum_{i=0}^{2d_2} \gamma_i \vect{\xi}_i(x)
     \hspace{1mm} : \hspace{1mm} D_i \in \mathcal{P}_k(e)^3
 \end{equation*}
 
-\noindent Con esto, se definen los grados de libertad que describen cada una de las variables, respectivamente $\beta$, $\gamma$ y $\xi$, así se procede a definir cada una de las integrales involucradas en el cálculo.
+\noindent De ahora en adelante se nombran los coeficientes $\alpha$, $\beta$ y $\gamma$ como grados de libertad, así mismo considerar para las variables de prueba $\vect{r_h}, \vect{v_h}$ y $\vect{\eta_h}$ los grados de libertad $\rho$, $\theta$ y $\delta$ respectivamente. Ahora se definen cada una de las integrales involucradas en el cálculo a partir de los grados de libertad involucrados en cada una de estas.
 
 \section{Construcción de las integrales}
 
-\noindent Se considera la integral de masa \textit{(Tambien conocida como \textbf{MM})}:
+\noindent La primera integral a considerar es la de masa, primero separaremos la integral en sus componentes:
+\begin{equation*}
+	\vol{\vect{z_h}}{\vect{r_h}} = \int_{K} \vect{z_h} \cdot \vect{r_h} =
+	\int_{K} z_h^{(1)}~r_h^{(1)} + \int_{K} z_h^{(2)}~r_h^{(2)} + \int_{K} z_h^{(3)}~r_h^{(3)}
+\end{equation*}
+
+\noindent Donde $z_h^{(l)}$ hace referencia al componente $l$-ésimo de $\vect{z_h}$, considerando una de estas integrales y reescribiendo cada componente a partir de los componentes de la base polinomial, es posible escribir las integrales en terminos de la integral en el elemento de referencia $\hat{K}$ y aplicar reglas de cuadratura, con lo que se obtiene que:
+\begin{align*}
+    \int_{K} z_h^{(l)}~r_h^{(l)} = \int_K \sum_{i = 1}^{d_3} \beta_i P_i(x) \sum_{j = 1}^{d_3} \rho_j P_j(x) &= |K|~\int_{\hat{K}} \sum_{i, j}^{d_3} \beta_i\rho_j \hat{P}_i(\hat{x})\hat{P}_j(\hat{x}) \\
+    &\approx \cancelto{1}{6 |\hat{K}|}~|K| \sum_{i, j = 1}^{d_3} \beta_i\rho_j \sum_{m = 1}^{N_{quad}} \tilde{w}_m~\hat{P}_i(\hat{q}_m)\hat{P}_j(\hat{q}_m),
+\end{align*}
+
+\noindent donde $\tilde{w}_m$ hace referencia a los pesos de cuadratura. Computacionalmente esta aproximación puede escribirse en términos de un producto directo de un vector de pesos $\tilde{w}_m$ y el producto matricial de polinomios $\hat{P}_i(\hat{q}_m)$ evaluados en los puntos de cuadratura $\hat{q}_m$, por lo que se define la matriz $\boldsymbol{M}_i$ como:
+\begin{align*}
+    \int_{K} z_h^{(l)}~r_h^{(l)} \approx \underbrace{|K|~\boldsymbol{w} \odot \boldsymbol{P}(\boldsymbol{\hat{q}}) \boldsymbol{P}(\boldsymbol{\hat{q}})^T}_{\boldsymbol{M}_i}
+\end{align*}
+\noindent Finalmente la matriz asociada a la integral de masa \textit{(Tambien conocida como \textbf{MM})} toma la forma:
 \begin{align}
     \vol{\vect{z_h}}{\vect{r_h}} \approx
     [r_h]'~\mathbf{M}~[z_h] =
@@ -181,10 +191,9 @@
     [z_h]
 \end{align}
 
-\noindent Donde cada uno de los elementos mencionados $\mathrm{M}_i$ hacen referencia a la cuadratura asociada a los $d_3 \times d_3$ grados de libertad del producto interno entre cada una de las componentes.
+\noindent Donde cada uno de los elementos mencionados $\mathrm{M}_i$ hacen referencia a la cuadratura asociada a los $d_3 \times d_3$ grados de libertad del producto interno entre cada una de las componentes, igualmente $[r_h]$ y $[z_h]$ hacen referencia a los vectores columna de grados de libertad de cada una de las variables.
 
-\vspace{1mm}
-\noindent Considere la integral asociada al curl \textit{(Tambien conocida como \textbf{MC})}:
+\noindent Consideraremos ahora la integral asociada al curl \textit{(Tambien conocida como \textbf{MC})}:
 \begin{align}
 \label{eq:5}
     \vol{\vect{z_h}}{\curl{r_h}} \approx
@@ -197,12 +206,15 @@
         \mathbf{CM}_y & -\mathbf{CM}_x & 0 \\
     \end{array}
     \right)
-    [z_h]
+    [z_h],
 \end{align}
 
-\noindent Donde los elementos mencionados $\mathrm{CM}_\star = \partial \hat{\star} / \partial x~\partial_x\hat{P} + \partial \hat{\star} / \partial y~\partial_y\hat{P} + \partial \hat{\star} / \partial z~ \partial_z\hat{P} : \star = \lbrace x, y, z \rbrace$, así cada una las matrices especificadas hace referencia a la cuadratura asociada a los $d_3 \times d_3$ grados de libertad para cada una de las componentes asociadas.
+\noindent Donde los elementos mencionados $\mathrm{CM}_\star$ son las matrices resultantes tras la transformación de Piola:
+\begin{equation*}
+\mathrm{CM}_\star = \frac{\partial \star}{\partial \hat{x}}~\partial_{\hat{x}}\hat{P} + \frac{\partial \star}{\partial \hat{y}}~\partial_{\hat{y}}\hat{P} + \frac{\partial \star}{\partial \hat{z}}~ \partial_{\hat{z}}\hat{P} : \star = \lbrace x, y, z \rbrace,
+\end{equation*}
 
-\vspace{1mm}
+\noindent por lo que cada una las matrices especificadas hace referencia a la cuadratura asociada a los $d_3 \times d_3$ grados de libertad para cada una de las componentes asociadas.
 
 \noindent Se considera la integral asociada al producto entre la función test $\vect{v}$ y la función $\vect{f}$
 \begin{align}
@@ -211,18 +223,19 @@
     [v_h]'
     \left(
     \begin{array}{ccc}
-       \mathbf{ f_x TEST }\\
-       \mathbf{ f_y TEST }\\
-       \mathbf{ f_z TEST }\\
+       f_x\text{TEST}\\
+       f_y\text{TEST}\\
+       f_z\text{TEST}\\
     \end{array}
     \right) =
     \mathbb{A}_f
     [v_h]'
 \end{align}
 
-\noindent Cada una de las definiciones $f_\star TEST : \star = \lbrace x, y, z \rbrace$ hace referencia a la cuadratura de los $d_3 \times d_3$ grados de libertad del producto interno entre la componente de la función y la variable test.
+\noindent Cada una de las definiciones $f_\star \text{TEST} : \star = \lbrace x, y, z \rbrace$ hace referencia a la cuadratura de los $d_3 \times d_3$ grados de libertad del producto interno entre la componente de la función y la variable test.
 
-\vspace{1mm}
+% This matrix it's seen to be unused.
+\begin{comment}
 \noindent Se considera la integral asociada al producto cruz con respecto a la normal $n$ \textit{(Tambien conocida como \textbf{TTM})}:
 \begin{align}
     - \face{\vect{z}_h}{\vect{n} \times \vect{r}_h}  \approx
@@ -239,9 +252,9 @@
 \end{align}
 
 \noindent Donde cada una de las matrices presentadas $\mathbf{PP}$ hacen referencia a la cuadratura asociada a los $d_3 \times d_3$ grados de libertad del producto interno entre cada una de las componentes dispuestas.
-\vspace{1mm}
+\end{comment}
 
-\noindent Se considera la integral asociada a la traza tangencial y el parámetro $\tau$ del modelo \textit{(Tambien conocida como \textbf{CTM})}:
+\noindent Se considera la integral asociada a la traza tangencial junto con el parámetro $\tau$ del modelo \textit{(Tambien conocida como \textbf{CTM})}:
 \begin{align}
     \begin{split}
     \tau~\face{\vect{u}_h^t}{\vect{v}_h} &\approx
@@ -249,48 +262,59 @@
     [v_h]'
     \left(
     \begin{array}{ccc}
-        (n_y^2 + n_z^2)~\mathbf{\tau PP} & -n_x n_y~\mathbf{\tau PP} & -n_x n_z~\mathbf{\tau PP} \\
-        -n_y n_x~\mathbf{\tau PP} & (n_x^2 + n_z^2)~\mathbf{\tau PP} & -n_y n_z~\mathbf{\tau PP} \\
-        -n_z n_x~\mathbf{\tau PP} & -n_z n_y~\mathbf{\tau PP} & (n_x^2 + n_y^2)~\mathbf{\tau PP} \\
+        (n_y^2 + n_z^2)~\boldsymbol{\tau PP} & -n_x n_y~\boldsymbol{\tau PP} & -n_x n_z~\boldsymbol{\tau PP} \\
+        -n_y n_x~\boldsymbol{\tau PP} & (n_x^2 + n_z^2)~\boldsymbol{\tau PP} & -n_y n_z~\boldsymbol{\tau PP} \\
+        -n_z n_x~\boldsymbol{\tau PP} & -n_z n_y~\boldsymbol{\tau PP} & (n_x^2 + n_y^2)~\boldsymbol{\tau PP} \\
     \end{array}
     \right)
     [u_h]
 \end{split}
 \end{align}
-\noindent Donde cada una de las matrices presentadas $\mathbf{\tau PP}$ hacen referencia a la cuadratura asociada a los $d_3 \times d_3$ grados de libertad del producto interno entre cada una de las componentes dispuestas, y el efecto que tiene el coeficiente $\tau$ definido. Esta matriz es igual al producto directo entre la matriz $\mathbf{PP}$ y $\tau$.
+\noindent Donde cada una de las matrices presentadas $\boldsymbol{\tau PP}$ hacen referencia a la cuadratura asociada a los $d_3 \times d_3$ grados de libertad del producto interno entre cada una de las componentes dispuestas, y el efecto que tiene el coeficiente $\tau$ definido. Esta matriz es igual al producto directo entre la matriz $\mathbf{PP}$, la \textit{matriz tangencial} y $\tau$.
 
-\vspace{1mm}
-\noindent Se considera la integral en las caras asociadas al producto cruz con respecto a la normal, esta integral es bastante similar a la explorada anteriormente en el volumen \refeq{eq:5}, únicamente que esta integral a considerar toma elementos que viven únicamente en las caras \textit{(Tambien conocida como \textbf{-FNTT})}:
+\noindent Se considera la integral en las caras asociadas al producto cruz con respecto a la normal, esta integral tiene en consideración las posibles orientaciones de las caras a partir de la estructura \texttt{T.perm} para compatibilidad entre elementos de caras y volumenes, para definir la matriz $\boldsymbol{nDP_e}$ \textit{(uno de los componente de la matriz \textbf{nDP} tambien conocida como \textbf{-FNTT})} primeramente expandimos la integral:
 \begin{align*}
-    \face{\vect{\hat{u}}_h^t}{\vect{r}_h \times \vect{n}}  \approx
-    [r_h]'~\mathbf{nDP_e}~[\hat{u}_h^t]  =
-    [r_h]'
+    \facee{\vect{\hat{u}_h^t}}{\vect{r}_h \times \vect{n}} &=
+    {\scalerel*[2ex]{\rint}{\begin{array}{ccc}1^1\\1^1\\1^1\end{array}}}_e
     \left(
-    \begin{array}{cccccc}
-        (n_z a_{1}^{y}  - n_y a_{1}^{z} ) \mathbf{DP} \\
-        (n_z a_{0}^{y}  - n_y a_{0}^{z} ) \mathbf{DP} \\
-        (n_x a_{1}^{z}  - n_z a_{1}^{x} ) \mathbf{DP} \\
-        (n_x a_{0}^{z}  - n_z a_{0}^{x} ) \mathbf{DP} \\
-        (n_y a_{1}^{x}  - n_x a_{1}^{y} ) \mathbf{DP} \\
-        (n_y a_{0}^{x}  - n_x a_{0}^{y} ) \mathbf{DP} \\
-    \end{array}
-    \right)
-    [\hat{u}_h^t], \hspace{1mm}
-    \forall e \in \mathcal{E}(K)
+        \begin{array}{ccc}
+            \hat{u}_h^{t\,(1)} \\ \hat{u}_h^{t\,(2)} \\ \hat{u}_h^{t\,(3)}
+        \end{array}
+    \right) \cdot
+    \left(
+        \begin{array}{ccc}
+            \hat{r}_h^{(2)} n_z - \hat{r}_h^{(3)} n_y \\
+            \hat{r}_h^{(3)} n_x - \hat{r}_h^{(1)} n_z \\
+            \hat{r}_h^{(1)} n_y - \hat{r}_h^{(2)} n_x \\
+        \end{array}
+    \right) \\
+    &= \underbrace{\int_e \hat{u}_h^{t\,(1)}~\hat{r}_h^{(2)} n_z} - \int_e \hat{u}_h^{t\,(1)}~\hat{r}_h^{(3)} n_y + \cdots -\int_e \hat{u}_h^{t\,(3)}~\hat{r}_h^{(2)} n_x,
 \end{align*}
 
-\noindent Primeramente debe notarse que por componente son considerados 2 valores de la base, esto debido a que se considera como generador la base definida en \refeq{eq:4}, por lo cual en cada componente se consideran los $d_3 \times d_2$ grados de libertad, y la base exige $d_3 \times 2d_2$ grados de libertad. Adicionalmente considerarse en cuenta que esta integral es definida por cara, por lo cual resulta conveniente para cada uno de los elementos definir $DP$ para los grados de libertad $d_3 \times 2d_2$ las cuatro caras que pertenecen al elemento concatenadas horizontalmente. En otras palabras la matriz que se debe reverenciar toma la forma:
+\noindent debido a la definición de la base para la variable $\vect{\hat{u}_h^t}$, que trae componentes de la matriz $\boldsymbol{A}$, nos centraremos inicialmente en la integral señalada:
+\begin{align*}
+    \int_e \hat{u}_h^{t\,(1)}~\hat{r}_h^{(2)} n_z &= \int_e \sum_{i=0}^{2d_2} \gamma_i \vect{\xi}_i(x) \sum_{j=0}^{d_3} \beta_j P_j(x) n_z \\
+    &= \int_e \vect{A_1} n_z \sum_{i=0}^{d_2} \gamma_i  D_i(x) \sum_{j=0}^{d_3} \beta_j P_j(x) + \int_e \vect{A_0} n_z \sum_{i=d_2 +1}^{2d_2} \gamma_i D_i(x) \sum_{j=0}^{d_3} \beta_j P_j(x).
+\end{align*}
 
-\begin{align}
-    [r_h]'~\mathbf{nDP}~[\hat{u}_h^t]  =
-    [r_h]'
-    \left(
-    \begin{array}{cccc}
-        \mathbf{nDP_{e_1}} & \mathbf{nDP_{e_2}} & \mathbf{nDP_{e_3}} & \mathbf{nDP_{e_4}}
-    \end{array}
-    \right)
-    [\hat{u}_h^t]
-\end{align}
+\noindent Veamos que existen componentes de la base los cuales dependen únicamente de $A_1$ y $A_0$, por lo que en la definición de la matriz $\boldsymbol{nDP_e}$ se consideran estas dos contribuciones, y así mismo esto se mantiene para cada una de las integrales de estudio. Así se define para la primera componente de la rotación con la normal $\vect{n}$ de la integral $\facee{\vect{\hat{u}_h^t}}{\vect{r}_h \times \vect{n}}$:
+\begin{align*}
+    \facee{\vect{\hat{u}_h^t}}{\vect{r}_h \times \vect{n}} &= \int_e \hat{u}_h^{t\,(1)}~(\hat{r}_h^{(2)} n_z - \hat{r}_h^{(3)} n_y) + \cdots \approx \underbrace{\left ( \begin{array}{cc}
+    a^x_1 ( n_z - n_y ) \mathbf{DP} \\ a^x_0 ( n_z - n_y ) \mathbf{DP}
+    \end{array}\right)}_{\mathbf{nDP_e}~\text{componente $x$ cara $e$}} + \cdots
+\end{align*}
+
+\noindent Finalmente estas componentes de la matriz $\boldsymbol{nDP_e}$ se organizan atraves del siguiente diagrama.
+
+\begin{figure}
+  \centering
+  \resizebox{0.35\textwidth}{!}{\input{img/matrix}}
+  \caption{Estructura tridimensional para guardado de información de la integral en caras.}
+  \label{matrix3d}
+  \vspace{-0.8em}
+\end{figure}
+
+\noindent Así en por bloques se define por filas cada una de las caras del elemento, por columnas se organizan por las coordenadas asociadas en el producto para discriminar las componentes de $\mathbf{A}$ y finalmente en profundidad se organiza por elementos, homologamente todas las integrales asociadas a caras toman una estructura similar.
 
 \noindent Se considera la integral en las caras asociada al producto interno entre elementos de viven en el volumen y las caras \textit{(Tambien conocida como \textbf{FNM})}:
 \begin{align*}
@@ -372,7 +396,7 @@
 
 \section{El sistema final}
 
-\noindent Con los elementos planteados, finalmente definimos tres matrices definidas por bloques que permiten representar el sistema definido por las ecuaciones \refeq{eq:1} - \refeq{eq:3}, empleando los elementos de cuadratura anterior mencionados.
+\noindent Con los elementos planteados, finalmente definimos tres matrices definidas por bloques que permiten representar el sistema definido por las ecuaciones \eqref{eq:1} - \eqref{eq:3}, empleando los elementos de cuadratura anterior mencionados.
 \begin{align}
     \mathbb{A}_1 \defeq
     \left (
@@ -419,7 +443,7 @@
 	\mathbb{A}_1^{-1} \mathbb{A}_f - \mathbb{A}_1^{-1} \mathbb{A}_2  [\hat{u}^t_h]
 \end{equation*}
 
-\noindent Dentro del dominio se exige \refeq{eq:2} por lo cual es posible con los elementos anteriormente definidos escribir una expresión matricial por bloques, así se obtiene:
+\noindent Dentro del dominio se exige \eqref{eq:2} por lo cual es posible con los elementos anteriormente definidos escribir una expresión matricial por bloques, así se obtiene:
 \begin{equation*}
 [\eta_h]' \mathbb{A}_3
     \left(

@@ -207,8 +207,9 @@ for l=1:4
     % The definition of corresponding permutations it's made in logical
     % expressions, it's verified that the current permutation it's
     % corresponding for each element before the kronigger product it's made
+
     for mu=1:6
-        
+
         % ----------------------- Tau x-component ----------------------- % 
         % - Reference element Integral
         % Permutation verification: A_1 definition
