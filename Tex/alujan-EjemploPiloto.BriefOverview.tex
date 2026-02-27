@@ -130,10 +130,10 @@
 
 \noindent Ahora hablaremos de las bases con las cuales se construyen los pares de volumen $(\vect{u_h}, \vect{z_h})$ restringidas al elemento $K \in \mathcal{T}_h$, para esto se consideran bases polinomiales de grado menor o igual a $k$ de la forma:
 \begin{equation*}
-    \left . \vect{u_h} \right |_K = \sum_{i=0}^{d_3} \alpha_i P_i(x)
+    \left . \vect{u_h} \right |_K = \sum_{i=1}^{d_3} \alpha_i P_i(x)
     \hspace{1mm} : \hspace{1mm} P_i \in \mathcal{P}_k(K)^3,
     \hspace{1 mm}
-    \left . \vect{z_h} \right |_K = \sum_{i=0}^{d_3} \beta_i P_i(x)
+    \left . \vect{z_h} \right |_K = \sum_{i=1}^{d_3} \beta_i P_i(x)
     \hspace{1mm} : \hspace{1mm} P_i \in \mathcal{P}_k(K)^3,
 \end{equation*}
 
@@ -152,7 +152,7 @@
 \noindent Con estos elementos definidos, se escribe la variable $\vect{\hat{u}^t_h}$ restringida a la cara $e \in \mathcal{E}_h$:
 
 \begin{equation*}
-    \left . \vect{\hat{u}^t_h} \right |_e = \sum_{i=0}^{2d_2} \gamma_i \vect{\xi}_i(x)
+    \left . \vect{\hat{u}^t_h} \right |_e = \sum_{i=1}^{2d_2} \gamma_i \vect{\xi}_i(x)
     \hspace{1mm} : \hspace{1mm} D_i \in \mathcal{P}_k(e)^3
 \end{equation*}
 
@@ -257,7 +257,7 @@
 \noindent Se considera la integral asociada a la traza tangencial junto con el parámetro $\tau$ del modelo \textit{(Tambien conocida como \textbf{CTM})}:
 \begin{align}
     \begin{split}
-    \tau~\face{\vect{u}_h^t}{\vect{v}_h} &\approx
+    \face{\tau\vect{u}_h^t}{\vect{v}_h} &\approx
     [v_h]'~\mathrm{tauPP}~[u_h] \\ &=
     [v_h]'
     \left(
@@ -288,23 +288,42 @@
             \hat{r}_h^{(1)} n_y - \hat{r}_h^{(2)} n_x \\
         \end{array}
     \right) \\
-    &= \underbrace{\int_e \hat{u}_h^{t\,(1)}~\hat{r}_h^{(2)} n_z} - \int_e \hat{u}_h^{t\,(1)}~\hat{r}_h^{(3)} n_y + \cdots -\int_e \hat{u}_h^{t\,(3)}~\hat{r}_h^{(2)} n_x,
+    &= \underbrace{\int_e \hat{u}_h^{t\,(1)}~\hat{r}_h^{(2)} n_z} - \int_e \hat{u}_h^{t\,(1)}~\hat{r}_h^{(3)} n_y + \cdots + \int_e \hat{u}_h^{t\,(3)}~\hat{r}_h^{(1)} n_y - \int_e \hat{u}_h^{t\,(3)}~\hat{r}_h^{(2)} n_x,
 \end{align*}
 
 \noindent debido a la definición de la base para la variable $\vect{\hat{u}_h^t}$, que trae componentes de la matriz $\boldsymbol{A}$, nos centraremos inicialmente en la integral señalada:
 \begin{align*}
-    \int_e \hat{u}_h^{t\,(1)}~\hat{r}_h^{(2)} n_z &= \int_e \sum_{i=0}^{2d_2} \gamma_i \vect{\xi}_i(x) \sum_{j=0}^{d_3} \beta_j P_j(x) n_z \\
-    &= \int_e \vect{A_1} n_z \sum_{i=0}^{d_2} \gamma_i  D_i(x) \sum_{j=0}^{d_3} \beta_j P_j(x) + \int_e \vect{A_0} n_z \sum_{i=d_2 +1}^{2d_2} \gamma_i D_i(x) \sum_{j=0}^{d_3} \beta_j P_j(x).
+    \int_e \hat{u}_h^{t\,(1)}~\hat{r}_h^{(2)} n_z &= \int_e \sum_{i=1}^{2d_2} \gamma_i \vect{\xi}_i(x) \sum_{j=1}^{d_3} \beta_j P_j(x) n_z \\
+    &= \int_e \vect{A_1} n_z \underbrace{\sum_{i=1}^{d_2} \gamma_i  D_i(x) \sum_{j=1}^{d_3} \beta_j P_j(x)}_{\text{Aproximación producto \textbf{DP}}} + \int_e \vect{A_0} n_z \underbrace{\sum_{i=d_2 +1}^{2d_2} \gamma_i D_i(x) \sum_{j=1}^{d_3} \beta_j P_j(x)}_{\text{Aproximación producto \textbf{DP}}}.
 \end{align*}
 
-\noindent Veamos que existen componentes de la base los cuales dependen únicamente de $A_1$ y $A_0$, por lo que en la definición de la matriz $\boldsymbol{nDP_e}$ se consideran estas dos contribuciones, y así mismo esto se mantiene para cada una de las integrales de estudio. Así se define para la primera componente de la rotación con la normal $\vect{n}$ de la integral $\facee{\vect{\hat{u}_h^t}}{\vect{r}_h \times \vect{n}}$:
+\noindent Veamos que existen componentes de la base los cuales dependen únicamente de $A_1$ y $A_0$, por lo que en la definición de la matriz $\boldsymbol{nDP_e}$ se consideran estas dos contribuciones, y así mismo esto se mantiene para cada una de las integrales de estudio. Así se define para la primera componente de la rotación con la normal $\vect{n}$ en la cara $e$ de la integral $\facee{\vect{\hat{u}_h^t}}{\vect{r}_h \times \vect{n}}$:
 \begin{align*}
-    \facee{\vect{\hat{u}_h^t}}{\vect{r}_h \times \vect{n}} &= \int_e \hat{u}_h^{t\,(1)}~(\hat{r}_h^{(2)} n_z - \hat{r}_h^{(3)} n_y) + \cdots \approx \underbrace{\left ( \begin{array}{cc}
+    \facee{\vect{\hat{u}_h^t}}{\vect{r}_h \times \vect{n}} &= \underbrace{\int_e \hat{u}_h^{t\,(1)}~(\hat{r}_h^{(2)} n_z - \hat{r}_h^{(3)} n_y)} + \cdots \approx \underbrace{\left ( \begin{array}{cc}
     a^x_1 ( n_z - n_y ) \mathbf{DP} \\ a^x_0 ( n_z - n_y ) \mathbf{DP}
-    \end{array}\right)}_{\mathbf{nDP_e}~\text{componente $x$ cara $e$}} + \cdots
+    \end{array}\right)}_{\mathbf{nDP_e}~\text{componente $x$ cara $e$}} + \cdots,
 \end{align*}
 
-\noindent Finalmente estas componentes de la matriz $\boldsymbol{nDP_e}$ se organizan en matrices de bloques, cada una de tamaño $d_3 \times 2 d_2 \times \text{Nelts}$ haciendo referencia a las componentes $\lbrace x, y, z \rbrace$ de las variables \textit{(dimensión $d_3$)}, dimensión de la base de cada cara \textit{(dimensión $2d_2$)} y elementos \textit{(dimensión $\text{Nelts}$)}, tal como se muestra en la figura \ref{matrix3d}. La matriz $\boldsymbol{nDP}$ tiene dimensiones $(3 \times d_3) \times (4 \times 2 d_2) \times \text{Nelts}$ debido a cada una de las componentes y las cuatro caras que tiene cada elemento.
+\noindent por lo cual si nos centramos únicamente en un elemento $K \in \mathcal{T}_h$, debemos considera las cuatro caras que estan asociadas al mismo $e \in \partial K$. Sí consideramos la contribución de las primeras componentes, señaladas anteriormente, esta toma forma de la matriz de dimensión $(4 \times 2 d_2) \times d_3$:
+\begin{align*}
+    \int_{\partial K} \hat{u}_h^{t\,(1)}~(\hat{r}_h^{(2)} n_z-\hat{r}_h^{(3)} n_y) =
+    \Bigl(
+    \smash{\underbrace{\begin{array}{cc}
+        a^x_1 ( n_z - n_y ) \mathbf{DP} \\ a^x_0 ( n_z - n_y ) \mathbf{DP}
+    \end{array}}_{\text{Cara 1}}}
+    \smash{\underbrace{\begin{array}{cc}
+        a^x_1 ( n_z - n_y ) \mathbf{DP} \\ a^x_0 ( n_z - n_y ) \mathbf{DP}
+    \end{array}}_{\text{Cara 2}}}
+    \smash{\underbrace{\begin{array}{cc}
+        a^x_1 ( n_z - n_y ) \mathbf{DP} \\ a^x_0 ( n_z - n_y ) \mathbf{DP}
+    \end{array}}_{\text{Cara 3}}}
+    \smash{\underbrace{\begin{array}{cc}
+        a^x_1 ( n_z - n_y ) \mathbf{DP} \\ a^x_0 ( n_z - n_y ) \mathbf{DP}
+    \end{array}}_{\text{Cara 4}}}
+    \Bigr )'. \\
+\end{align*}
+
+\noindent Finalmente estas componentes de la matriz $\boldsymbol{nDP_e}$ se organizan en matrices de bloques, cada una de tamaño $d_3 \times 2 d_2 \times \text{Nelts}$ haciendo referencia a las componentes $\lbrace x, y, z \rbrace$ de las variables \textit{(dimensión $d_3$)}, dimensión de la base de cada cara \textit{(dimensión $2d_2$)} y elementos \textit{(dimensión $\text{Nelts}$)}, y la matriz resultante $\boldsymbol{nDP}$ tiene dimensiones $(3 \times d_3) \times (4 \times 2 d_2) \times \text{Nelts}$ tal como se muestra en la figura \ref{matrix3d}.
 
 \begin{figure}[ht]
   \centering
@@ -313,69 +332,64 @@
   \label{matrix3d}
 \end{figure}
 
-\noindent Así en por bloques se define por filas cada una de las caras del elemento, por columnas se organizan por las coordenadas asociadas en el producto para discriminar las componentes de $\mathbf{A}$ y finalmente en profundidad se organiza por elementos, homologamente todas las integrales asociadas a caras toman una estructura similar.
+\noindent Así en bloques se define por filas cada una de las caras del elemento, por columnas se organizan por las coordenadas asociadas en el producto, tanto componentes de $\vect{\hat{u}^t_h}$ y $\mathbf{A}$, finalmente en profundidad se organiza por elementos, homologamente todas las integrales asociadas a caras toman una estructura similar.
 
 \noindent Se considera la integral en las caras asociada al producto interno entre elementos de viven en el volumen y las caras \textit{(Tambien conocida como \textbf{FNM})}:
-\begin{align*}
-    \tau~\face{\vect{\hat{u}}_h^t}{\vect{v}_h} \approx
+\begin{equation*}
+    \face{\tau\vect{\hat{u}}_h^t}{\vect{v}_h} \approx
+    [v_h]'~\mathbf{tauDP}~[\hat{u}_h^t]  =
+    [v_h]' \left ( \mathbf{tauDP_1} \cdots \mathbf{tauDP_e} \cdots \mathbf{tauDP_4} \right )' [\hat{u}_h^t],
+\end{equation*}
+
+\noindent igualmente que la integral anterior, esta matriz es definida por caras $e \in \partial K$, por lo que centrandonos únicamente en una de las caras $\mathbf{tauDP_e}$ toma la forma:
+\begin{align}
     [v_h]'~\mathbf{tauDP_e}~[\hat{u}_h^t]  =
     [v_h]'
     \left(
-    \begin{array}{cccccc}
-        \tau a_{1}^{x} \mathrm{DP} \\
-        \tau a_{1}^{y}\mathrm{DP} \\
-        \tau a_{1}^{z} \mathrm{DP} \\
-        \tau a_{0}^{x} \mathrm{DP} \\
-        \tau a_{0}^{y}\mathrm{DP} \\
-        \tau a_{0}^{z} \mathrm{DP}
-    \end{array}
-    \right)
-    [\hat{u}_h^t], \hspace{1mm}
-    \forall e \in \mathcal{E}(K)
-\end{align*}
-
-\noindent Homologamente, esta matriz es definida por caras, por lo cual la matriz que se referencia obtiene la forma tras concatenar cada una de estas matrices horizontalmente.
-\begin{align}
-    \tau~[v_h]'~\mathbf{tauDP}~[\hat{u}_h^t]  =
-    [v_h]'
-    \left(
-    \begin{array}{cccc}
-        \mathbf{tauDP_{e_1}} & \mathbf{tauDP_{e_2}} & \mathbf{tauDP_{e_3}} & \mathbf{tauDP_{e_4}}
-    \end{array}
-    \right)
-    [\hat{u}_h^t]
-\end{align}
-
-\noindent Se considera la integral del flujo numérico asociada al producto interno entre el elemento tangencial y la función test en las caras \textit{(Tambien conocida como \textbf{CTFM})}:
-\begin{align*}
-    \tau~\face{\vect{u}_h^t}{\vect{\eta}_h} &\approx
-    [\eta_h]'~\mathbf{tauDP\_t_e}~[u_h^t] \\ &=
-    [\eta_h]'
-    \left(
     \begin{array}{ccc}
-     	( a_{1}^x (n_y^2 + n_z^2) -a_{1}^y n_x n_y - a_{1}^z n_x n_z )~\tau \mathbf{DP}' \\
-	( a_{0}^x (n_y^2 + n_z^2) -a_{0}^y n_x n_y - a_{0}^z n_x n_z )~\tau \mathbf{DP}' \\
-        ( -a_{1}^x n_y n_x  + a_{1}^y (n_x^2 + n_z^2) - a_{1}^z n_y n_z )~\tau \mathbf{DP}' \\
-        ( -a_{0}^x n_y n_x  + a_{0}^y (n_x^2 + n_z^2) - a_{0}^z n_y n_z )~\tau \mathbf{DP}' \\
-        ( -a_{1}^x n_z n_x  - a_{1}^y n_z n_y + a_{1}^z (n_x^2 + n_y^2) )~\tau \mathbf{DP}'  \\
-        ( -a_{0}^x n_z n_x  - a_{0}^y n_z n_y + a_{0}^z (n_x^2 + n_y^2) )~\tau \mathbf{DP}'
+        a_1^{x} \tau \mathbf{DP} & a_1^{y} \tau \mathbf{DP} & a_1^{z} \tau \mathbf{DP} \\
+        a_0^{x} \tau \mathbf{DP} & a_0^{y} \tau \mathbf{DP} & a_0^{z} \tau \mathbf{DP}
     \end{array}
     \right)
-    [u_h^t], \hspace{1mm}
-    \forall e \in \mathcal{E}(K)
+    [\hat{u}_h^t].
+\end{align}
+
+\noindent Se considera la integral del flujo numérico asociada al producto interno entre el elemento tangencial y la función test en las caras \textit{(Tambien conocida como \textbf{CTFM})}, similar a como se hizo anteriormente primero discriminaremos la contribución de una de las caras:
+\begin{equation*}
+    \face{\tau\vect{u}_h^t}{\vect{\eta}_h} \approx [\eta_h]'~\mathbf{tauDP\_t}~[u_h^t]
+    = [\eta_h]' \left ( \mathbf{tauDP\_t_1} \cdots \mathbf{tauDP\_t_e} \cdots \mathbf{tauDP\_t_4} \right )' [u_h^t],
+\end{equation*}
+
+\noindent centrandonos únicamente en los aportes de una de las caras, esta toma la forma matricial:
+\begin{align*}
+    [\eta_h]'~ \left (
+    \begin{array}{ccc}
+     	( a_{1}^x (n_y^2 + n_z^2) -a_{1}^y n_x n_y - a_{1}^z n_x n_z )~\tau \mathbf{DP} &
+        \cdots &
+        ( -a_{1}^x n_z n_x  - a_{1}^y n_z n_y + a_{1}^z (n_x^2 + n_y^2) )~\tau \mathbf{DP} \\
+        ( a_{0}^x (n_y^2 + n_z^2) -a_{0}^y n_x n_y - a_{0}^z n_x n_z )~\tau \mathbf{DP} &
+        \cdots &
+        ( -a_{0}^x n_z n_x  - a_{0}^y n_z n_y + a_{0}^z (n_x^2 + n_y^2) )~\tau \mathbf{DP}
+    \end{array}
+    \right )~[u_h^t]
 \end{align*}
 
-\noindent Siguiendo las mismas consideraciones anteriores, la matriz a considerar es:
-\begin{align}
-    [\eta_h]'~\mathbf{tauDP\_t}_e~[u_h]   =
-    [\eta_h]'
-    \left(
-    \begin{array}{cccc}
-        \mathbf{tauDP\_t_{e_1}} & \mathbf{tauDP\_t_{e_2}} & \mathbf{tauDP\_t_{e_3}} & \mathbf{tauDP\_t_{e_4}}
-    \end{array}
-    \right)
-    [u_h^t]
-\end{align}
+% I'm not going to re-write this entirely
+\begin{comment}
+[\eta_h]'
+\left(
+\begin{array}{ccc}
+ 	( a_{1}^x (n_y^2 + n_z^2) -a_{1}^y n_x n_y - a_{1}^z n_x n_z )~\tau \mathbf{DP}' \\
+	( a_{0}^x (n_y^2 + n_z^2) -a_{0}^y n_x n_y - a_{0}^z n_x n_z )~\tau \mathbf{DP}' \\
+    ( -a_{1}^x n_y n_x  + a_{1}^y (n_x^2 + n_z^2) - a_{1}^z n_y n_z )~\tau \mathbf{DP}' \\
+    ( -a_{0}^x n_y n_x  + a_{0}^y (n_x^2 + n_z^2) - a_{0}^z n_y n_z )~\tau \mathbf{DP}' \\
+    ( -a_{1}^x n_z n_x  - a_{1}^y n_z n_y + a_{1}^z (n_x^2 + n_y^2) )~\tau \mathbf{DP}'  \\
+    ( -a_{0}^x n_z n_x  - a_{0}^y n_z n_y + a_{0}^z (n_x^2 + n_y^2) )~\tau \mathbf{DP}'
+\end{array}
+\right)
+[u_h^t], \hspace{1mm}
+\forall e \in \mathcal{E}(K)
+\end{comment}
 
 \noindent Finalmente se considera la integral que contiene el producto interno de las funciones que viven en las caras \textit{(Tambien conocida como \textbf{FNFN})}:
 \begin{align}
