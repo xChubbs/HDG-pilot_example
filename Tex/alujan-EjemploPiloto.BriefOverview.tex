@@ -304,14 +304,13 @@
     \end{array}\right)}_{\mathbf{nDP_e}~\text{componente $x$ cara $e$}} + \cdots
 \end{align*}
 
-\noindent Finalmente estas componentes de la matriz $\boldsymbol{nDP_e}$ se organizan atraves del siguiente diagrama.
+\noindent Finalmente estas componentes de la matriz $\boldsymbol{nDP_e}$ se organizan en matrices de bloques, cada una de tamaño $d_3 \times 2 d_2 \times \text{Nelts}$ haciendo referencia a las componentes $\lbrace x, y, z \rbrace$ de las variables \textit{(dimensión $d_3$)}, dimensión de la base de cada cara \textit{(dimensión $2d_2$)} y elementos \textit{(dimensión $\text{Nelts}$)}, tal como se muestra en la figura \ref{matrix3d}. La matriz $\boldsymbol{nDP}$ tiene dimensiones $(3 \times d_3) \times (4 \times 2 d_2) \times \text{Nelts}$ debido a cada una de las componentes y las cuatro caras que tiene cada elemento.
 
-\begin{figure}
+\begin{figure}[ht]
   \centering
-  \resizebox{0.35\textwidth}{!}{\input{img/matrix}}
+  \resizebox{0.5\textwidth}{!}{\input{img/matrix}}
   \caption{Estructura tridimensional para guardado de información de la integral en caras.}
   \label{matrix3d}
-  \vspace{-0.8em}
 \end{figure}
 
 \noindent Así en por bloques se define por filas cada una de las caras del elemento, por columnas se organizan por las coordenadas asociadas en el producto para discriminar las componentes de $\mathbf{A}$ y finalmente en profundidad se organiza por elementos, homologamente todas las integrales asociadas a caras toman una estructura similar.

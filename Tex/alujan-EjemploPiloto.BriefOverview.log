@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.21.0 (TeX Live 2025)  (format=lualatex 2025.3.8)  13 FEB 2026 13:54
+This is LuaHBTeX, Version 1.21.0 (TeX Live 2025)  (format=lualatex 2025.3.8)  17 FEB 2026 16:16
  restricted system commands enabled.
 **alujan-EjemploPiloto.BriefOverview.tex
 (./alujan-EjemploPiloto.BriefOverview.tex
@@ -949,13 +949,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
-[2] Excluding 'comment' comment. (./img/matrix.tex
+[2] Excluding 'comment' comment.
+
+[3] (./img/matrix.tex
 (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
 s/tikzlibrarymatrix.code.tex
 File: tikzlibrarymatrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))
-
-[3]
 
 [4]
 
@@ -976,14 +976,14 @@ not changed.
 
 Here is how much of LuaTeX's memory you used:
  26177 strings out of 475506
- 156414,1648299 words of node,token memory allocated
+ 156413,1648299 words of node,token memory allocated
  5787 words of node memory still in use:
    128 hlist, 24 vlist, 10 rule, 58 math, 158 glue, 76 kern, 21 penalty, 223 gly
 ph, 151 attribute, 57 glue_spec, 77 attribute_list, 2 write nodes
-   avail lists: 1:1,2:10197,3:3222,4:327,5:733,6:35,7:9812,8:62,9:3411,10:11,11:
-704
+   avail lists: 1:2,2:10150,3:3242,4:327,5:685,6:35,7:10326,8:62,9:3559,10:11,11
+:695
  48501 multiletter control sequences out of 65536+600000
- 82 fonts using 5775615 bytes
+ 84 fonts using 6038991 bytes
  99i,21n,100p,18293b,1282s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmmono10-regular.ot
 f></usr/local/texlive/2025/texmf-dist/fonts/opentype/public/lm/lmroman10-boldita
@@ -1013,11 +1013,11 @@ al/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/latxfont/line10.pfb></usr
 /local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></
 usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
 
-Output written on alujan-EjemploPiloto.BriefOverview.pdf (5 pages, 223546 bytes)
+Output written on alujan-EjemploPiloto.BriefOverview.pdf (5 pages, 225209 bytes)
 .
 
-PDF statistics: 201 PDF objects out of 1000 (max. 8388607)
- 145 compressed objects within 2 object streams
+PDF statistics: 203 PDF objects out of 1000 (max. 8388607)
+ 147 compressed objects within 2 object streams
  22 named destinations out of 1000 (max. 131072)
  40 words of extra memory for PDF output out of 10000 (max. 100000000)
 

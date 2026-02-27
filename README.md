@@ -1,4 +1,4 @@
-# HDG: pilot example
+# HDG: The curl-curl pilot example
 
 This project provides a computational framework for exploring and solving a pilot example of a second-order curl problem using the powerful Hybridizable Discontinuous Galerkin (HDG) finite element method. Whether you're a seasoned researcher or a student in numerical analysis, this repository aims to offer a clear, practical example implemented in MATLAB.
 
