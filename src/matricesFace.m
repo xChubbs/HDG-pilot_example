@@ -183,17 +183,11 @@ for l=1:4
             Ny, -Nx,  O];
 
     % Definition of transformations related vectors
-    nmuA0 = pagemtimes(nmu, reshape(A_0, [3, 1, Nelts]));
-    nmuA1 = pagemtimes(nmu, reshape(A_1, [3, 1, Nelts]));
-
-    nxA0 = pagemtimes(nx, reshape(A_0, [3, 1, Nelts]));
-    nxA1 = pagemtimes(nx, reshape(A_1, [3, 1, Nelts]));
-
-    % nmuA0 = pagemtimes(reshape(A_0, [1, 3, Nelts]), nmu);
-    % nmuA1 = pagemtimes(reshape(A_1, [1, 3, Nelts]), nmu);
-    % 
-    % nxA0 = pagemtimes(reshape(A_0, [1, 3, Nelts]), nx);
-    % nxA1 = pagemtimes(reshape(A_1, [1, 3, Nelts]), nx);
+    nmuA0 = pagemtimes(T.A(2, :, T.facebyele(:, l)), nmu);
+    nmuA1 = pagemtimes(T.A(1, :, T.facebyele(:, l)), nmu);
+     
+    nxA0 = pagemtimes(T.A(2, :, T.facebyele(:, l)), nx);
+    nxA1 = pagemtimes(T.A(1, :, T.facebyele(:, l)), nx);
 
     % Unravel of third dimention
     nmuA0 = reshape(nmuA0, [3, Nelts]);

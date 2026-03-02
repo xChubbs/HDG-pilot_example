@@ -118,12 +118,7 @@
 \label{eq:1}
     \vol{\vect{z_h}}{\vect{r_h}} - \vol{\vect{u}}{\curl{r_h}} - \face{\hat{u}^t_h}{\vect{r_h} \times \vect{n}} &= 0 &\forall \vect{r} \in \mathcal{P}_k(K)^3, \\
     \label{eq:2}
-    \begin{split}
-    \vol{\vect{u_h}}{\vect{v_h}} + \vol{\vect{z_h}}{\curl{v_h}} +
-    \face{\vect{n} \times \vect{z_h^t}}{\vect{v_h}}& \\
-    + \tau \face{\vect{u_h^t}}{\vect{v_h}} -\tau \face{\vect{\hat{u}_h^t}}{\vect{v_h}}
-    &= \vol{\vect{f}}{\vect{v_h}}
-    \end{split} &\forall \vect{v} \in \mathcal{P}_k(K)^3,\\
+    \vol{\vect{u_h}}{\vect{v_h}} + \vol{\curl{z_h}}{\vect{v_h}} + \face{\tau (\vect{u_h^t} - \vect{\hat{u}_h^t})}{\vect{v_h}} &= \vol{\vect{f}}{\vect{v_h}} &\forall \vect{v} \in \mathcal{P}_k(K)^3,\\
     \label{eq:3}
     \frontier{\vect{\hat{u}^t_h} \times \vect{n}}{\vect{\eta_h}} &= \frontier{\vect{g} \times \vect{n}}{\vect{\eta_h}} &\forall \vect{\eta} \in \mathcal{P}_k(e)^3.
 \end{align}
